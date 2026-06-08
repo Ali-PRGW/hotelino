@@ -1,5 +1,5 @@
 name: hotelino
-description: "A new Flutter project."
+description: "A simple hotel booking app built with Flutter. It allows users to browse and book hotels, view hotel details, and manage their bookings. based on provider state management and clean architecture principles."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.8
 
 dev_dependencies:
 
@@ -69,6 +70,16 @@ flutter_launcher_icons:
     generate: true
     image_path: "assets/icon/icon.png"
 
+
+flutter_native_splash:
+  color: "#B27258"
+  image: assets/icon/splash.png
+  android_gravity: center
+  fullscreen: true
+
+  android_12:
+   image: assets/icon/splash.png
+   color: "#B27258"
 
 # The following section is specific to Flutter packages.
 flutter:
