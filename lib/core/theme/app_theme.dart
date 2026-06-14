@@ -127,7 +127,7 @@ class AppTheme {
   return baseDark.copyWith(
     colorScheme: baseDark.colorScheme.copyWith(
       outline: Colors.grey[500],
-      primaryFixed: AppColors.primary 
+      primaryFixed: AppColors.primary  
     )
   );
   
