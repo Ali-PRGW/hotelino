@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/theme/app_theme.dart';
 import 'package:hotelino/core/theme/theme_provider.dart';
+import 'package:hotelino/features/onboarding/data/repositories/onboarding_repository.dart';
+import 'package:hotelino/features/onboarding/logic/onboarding_provider.dart';
 import 'package:hotelino/lazy_bootstrap.dart';
+import 'package:hotelino/routes/app_route.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -14,6 +17,7 @@ void main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => ThemeProvider(WidgetsBinding.instance.platformDispatcher.platformBrightness)),
+    ChangeNotifierProvider(create: (_) => OnboardingProvider(OnboardingRepository()))
   ]
   ,
   child: const MyApp(),
@@ -58,16 +62,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, themeModeProvider, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: themeModeProvider.brightness == Brightness.light ? AppTheme.lightTheme : AppTheme.darkTheme,
-          home: Scaffold(
-            appBar: AppBar(),
-            body: Center(
-              child: ElevatedButton(onPressed:(){
-                themeModeProvider.toggleTheme();
-              }, child: Text('Change Theme')),
-            ),
+        return SafeArea(
+          top: false,
+          child: MaterialApp(
+            title: 'Hotelino',
+            debugShowCheckedModeBanner: false,
+            theme: themeModeProvider.brightness == Brightness.light ? AppTheme.lightTheme : AppTheme.darkTheme,
+            routes: AppRoute.routes,
+            initialRoute: AppRoute.onboarding,
           ),
         );
       } ,
