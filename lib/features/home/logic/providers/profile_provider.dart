@@ -23,6 +23,7 @@ class ProfileProvider extends ChangeNotifier {
 
   loadUserProfile() async {
     _profileData = await _profileRepository.fetchUserProfile();
+    notifyListeners();
   }
 
 
