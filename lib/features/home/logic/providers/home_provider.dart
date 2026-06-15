@@ -3,7 +3,6 @@ import 'package:hotelino/core/constants/constants.dart';
 import 'package:hotelino/features/home/data/models/homepage_data.dart';
 import 'package:hotelino/features/home/data/models/hotel.dart';
 import 'package:hotelino/features/home/data/repositories/hotel_repository.dart';
-import 'package:hotelino/features/home/presentation/homePage.dart';
 
 class HomeProvider extends ChangeNotifier {
   final HotelRepository _hotelRepository;
