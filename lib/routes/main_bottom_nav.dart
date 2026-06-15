@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelino/core/constants/constants.dart';
 import 'package:hotelino/features/boking/bookingPage.dart';
 import 'package:hotelino/features/favorite/favoritePage.dart';
-import 'package:hotelino/features/home/homePage.dart';
+import 'package:hotelino/features/home/presentation/homePage.dart';
 import 'package:hotelino/features/profile/profilePage.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
