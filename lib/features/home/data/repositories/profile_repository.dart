@@ -1,6 +1,7 @@
 import 'package:hotelino/features/home/data/models/profile_data.dart';
 
 class ProfileRepository {
+
   Future<ProfileData> fetchUserProfile() async {
     
     //if the information comes from a server we can use a delay to ensure data fetches
