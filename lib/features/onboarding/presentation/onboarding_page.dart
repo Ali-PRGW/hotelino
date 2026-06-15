@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelino/features/onboarding/logic/onboarding_provider.dart';
+import 'package:hotelino/features/onboarding/logic/providers/onboarding_provider.dart';
 import 'package:hotelino/features/onboarding/presentation/widgets/onboarding_button.dart';
 import 'package:hotelino/features/onboarding/presentation/widgets/onboarding_item.dart';
 import 'package:hotelino/routes/app_route.dart';

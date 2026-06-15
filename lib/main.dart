@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/theme/app_theme.dart';
 import 'package:hotelino/core/theme/theme_provider.dart';
+import 'package:hotelino/features/home/data/repositories/hotel_repository.dart';
+import 'package:hotelino/features/home/logic/providers/home_provider.dart';
 import 'package:hotelino/features/onboarding/data/repositories/onboarding_repository.dart';
-import 'package:hotelino/features/onboarding/logic/onboarding_provider.dart';
+import 'package:hotelino/features/onboarding/logic/providers/onboarding_provider.dart';
 import 'package:hotelino/lazy_bootstrap.dart';
 import 'package:hotelino/routes/app_route.dart';
+import 'package:hotelino/shared/services/json_data_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  final homeRepository = HotelRepository(jsonDataService: JsonDataService());
+
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LazyBootstrap();
@@ -17,7 +23,9 @@ void main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => ThemeProvider(WidgetsBinding.instance.platformDispatcher.platformBrightness)),
-    ChangeNotifierProvider(create: (_) => OnboardingProvider(OnboardingRepository()))
+    ChangeNotifierProvider(create: (_) => OnboardingProvider(OnboardingRepository())),
+    ChangeNotifierProvider(create: (_) => HomeProvider(homeRepository)),
+
   ]
   ,
   child: const MyApp(),
