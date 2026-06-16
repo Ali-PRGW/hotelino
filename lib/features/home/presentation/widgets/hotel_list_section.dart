@@ -42,8 +42,8 @@ class HotelListSection extends StatelessWidget {
           itemCount: hotels.length,
           itemBuilder: (context, index) {
             return Consumer<FavoriteItemProvider>(
-              
-             )
+
+             );
           },
         ),
       )
