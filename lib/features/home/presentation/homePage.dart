@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/features/home/logic/providers/home_provider.dart';
 import 'package:hotelino/features/home/presentation/widgets/home_appbar.dart';
+import 'package:hotelino/features/home/presentation/widgets/searchbar.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatelessWidget {
@@ -12,7 +13,14 @@ class Homepage extends StatelessWidget {
 
     return Scaffold(
       appBar: HomeAppbar(),
-      body: Center(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(height: 16),
+            Searchbar()],
+        ),
+      ),
     );
   }
 }
