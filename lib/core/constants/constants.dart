@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hotelino/features/home/data/models/homepage_data.dart';
 
 class AppConstants {
-  static const String baseUrlImage = "";
+static const String baseUrlImage =
+  "https://raw.githubusercontent.com/Ali-PRGW/hotel-assets/main/images/";
   static const String hotelData = "assets/data/hotels.json";
 }
 

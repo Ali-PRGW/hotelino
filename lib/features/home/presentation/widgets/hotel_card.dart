@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelino/core/utils/network.dart';
 import 'package:hotelino/core/utils/price_formater.dart';
 import 'package:hotelino/features/home/data/models/hotel.dart';
 import 'package:hotelino/features/home/logic/providers/favorite_item_provider.dart';
@@ -22,16 +23,28 @@ class HotelCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(children: [
-
-            ],),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                  child: Image.network(
+                    networkUrl(hotel.images[0]),
+                    height: 200,
+                    width: double.infinity,
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(height: 8),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(width: 8),
                       Icon(Icons.star, color: Colors.amber, size: 20),
@@ -40,6 +53,7 @@ class HotelCard extends StatelessWidget {
                         "${hotel.rating} (${formatPrice(hotel.reviewCount)})",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      Spacer(),
                       Text(
                         hotel.name,
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -78,7 +92,7 @@ class HotelCard extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Padding(
-                    padding: EdgeInsetsGeometry.only(right: 8 , left: 8),
+                    padding: EdgeInsetsGeometry.only(right: 8, left: 8),
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
