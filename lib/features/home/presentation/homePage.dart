@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/features/home/logic/providers/home_provider.dart';
+import 'package:hotelino/features/home/presentation/widgets/ad_banner.dart';
 import 'package:hotelino/features/home/presentation/widgets/home_appbar.dart';
 import 'package:hotelino/features/home/presentation/widgets/searchbar.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,10 @@ class Homepage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(height: 16),
-            Searchbar()],
+            Searchbar(),
+            SizedBox(height: 16),
+            AdBanner()
+            ],
         ),
       ),
     );
