@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/features/home/data/models/hotel.dart';
+import 'package:hotelino/features/home/logic/providers/favorite_item_provider.dart';
+import 'package:provider/provider.dart';
 
 class HotelListSection extends StatelessWidget {
   const HotelListSection({
@@ -39,7 +41,9 @@ class HotelListSection extends StatelessWidget {
         SizedBox(height: 360,child: ListView.builder(
           itemCount: hotels.length,
           itemBuilder: (context, index) {
-            return  
+            return Consumer<FavoriteItemProvider>(
+              
+             )
           },
         ),
       )
