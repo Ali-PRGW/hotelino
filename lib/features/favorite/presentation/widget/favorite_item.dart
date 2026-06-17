@@ -65,7 +65,7 @@ class FavoriteHotelCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "${hotel.bedType.count} ${hotel.bedType.details}",
+                            "${hotel.bedType.details}",
                             textDirection: TextDirection.rtl,
                           ),
                           const SizedBox(width: 5),
