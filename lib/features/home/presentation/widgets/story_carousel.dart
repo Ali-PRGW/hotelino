@@ -1,15 +1,12 @@
 import 'dart:async';
-
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/utils/network.dart';
 
 class StoryCarousel extends StatefulWidget {
-
-  final List<String> images ;
-  final List<String> titles ;
-
+  final List<String> images;
+  final List<String> titles;
 
   const StoryCarousel({super.key, required this.images, required this.titles});
   @override
@@ -17,22 +14,22 @@ class StoryCarousel extends StatefulWidget {
 }
 
 class _StoryCarouselState extends State<StoryCarousel> {
-  
   int _currentIndex = 0;
   late Timer _timer;
-  final CarouselSliderController _carouselController = CarouselSliderController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _srtartAutoSlide();
   }
 
-  void _srtartAutoSlide(){
-    _timer = Timer.periodic(Duration(seconds: 5 ), (timer) {
-      if(_currentIndex < widget.images.length -1){
+  void _srtartAutoSlide() {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      if (_currentIndex < widget.images.length - 1) {
         _currentIndex++;
-      }else{
+      } else {
         _currentIndex = 0;
       }
       _carouselController.animateToPage(_currentIndex);
@@ -41,25 +38,25 @@ class _StoryCarouselState extends State<StoryCarousel> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _timer.cancel();
     super.dispose();
   }
 
-  void _nextSlide(){
-    if(_currentIndex < widget.images.length -1){
+  void _nextSlide() {
+    if (_currentIndex < widget.images.length - 1) {
       _currentIndex++;
-    }else{
+    } else {
       _currentIndex = 0;
     }
     _carouselController.animateToPage(_currentIndex);
   }
 
-   void _previousSlide(){
-    if(_currentIndex > 0){
+  void _previousSlide() {
+    if (_currentIndex > 0) {
       _currentIndex--;
-    }else{
-      _currentIndex = widget.images.length -1;
+    } else {
+      _currentIndex = widget.images.length - 1;
     }
     _carouselController.animateToPage(_currentIndex);
   }
@@ -121,7 +118,9 @@ class _StoryCarouselState extends State<StoryCarousel> {
                       height: 4,
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
-                        color: _currentIndex >= index ? Colors.white : Colors.grey.shade300,
+                        color: _currentIndex >= index
+                            ? Colors.white
+                            : Colors.grey.shade300,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

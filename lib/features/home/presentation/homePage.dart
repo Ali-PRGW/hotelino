@@ -3,6 +3,7 @@ import 'package:hotelino/features/home/logic/providers/home_provider.dart';
 import 'package:hotelino/features/home/presentation/widgets/ad_banner.dart';
 import 'package:hotelino/features/home/presentation/widgets/home_appbar.dart';
 import 'package:hotelino/features/home/presentation/widgets/hotel_list_section.dart';
+import 'package:hotelino/features/home/presentation/widgets/hotel_vertical_list.dart';
 import 'package:hotelino/features/home/presentation/widgets/searchbar.dart';
 import 'package:hotelino/features/home/presentation/widgets/story_carousel.dart';
 import 'package:provider/provider.dart';
@@ -53,8 +54,15 @@ class Homepage extends StatelessWidget {
                 );
               },
             ),
-
-            SizedBox(height: 16),
+            
+            Consumer<HomeProvider>(
+              builder: (context, homeProvider, child) {
+                return HotelVerticalList(
+                  title: "جدید ترین هتل ها",
+                  hotels: homeProvider.getNewestHotels(),
+                );
+              },
+            ),
           ],
         ),
       ),

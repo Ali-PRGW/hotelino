@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/utils/network.dart';
 import 'package:hotelino/core/utils/price_formater.dart';
@@ -39,7 +40,7 @@ class HotelCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top : 8 , 
+                  top: 8,
                   right: 8,
                   child: AnimatedFavoriteButton(
                     isFavorite: isFavorite,
@@ -47,8 +48,8 @@ class HotelCard extends StatelessWidget {
                       favoriteItemProvider.toggleFavorite(hotel.id);
                     },
                   ),
-                )
-               ],
+                ),
+              ],
             ),
             Expanded(
               child: Column(
@@ -56,7 +57,7 @@ class HotelCard extends StatelessWidget {
                 children: [
                   SizedBox(height: 8),
                   Row(
-                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(width: 8),
                       Icon(Icons.star, color: Colors.amber, size: 20),
@@ -116,9 +117,7 @@ class HotelCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 8,
-                  )
+                  SizedBox(height: 8),
                 ],
               ),
             ),
