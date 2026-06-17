@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelino/core/constants/constants.dart';
-import 'package:hotelino/features/boking/bookingPage.dart';
+import 'package:hotelino/features/boking/presentation/bookingPage.dart';
 import 'package:hotelino/features/favorite/presentation/favorite_page.dart';
 import 'package:hotelino/features/home/presentation/homePage.dart';
 import 'package:hotelino/features/profile/profilePage.dart';
@@ -25,7 +25,7 @@ class _MainBottomNavState extends State<MainBottomNav> {
   }
 
   _buildScreens() {
-    return [Homepage(), FavoritePage(), Bookingpage(), Profilepage()];
+    return [Homepage(), FavoritePage(), BookingPage(), Profilepage()];
   }
 
   List<PersistentBottomNavBarItem> _navBarItems() {

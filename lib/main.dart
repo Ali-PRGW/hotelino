@@ -11,6 +11,7 @@ import 'package:hotelino/features/onboarding/logic/providers/onboarding_provider
 import 'package:hotelino/lazy_bootstrap.dart';
 import 'package:hotelino/routes/app_route.dart';
 import 'package:hotelino/shared/services/json_data_service.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -19,22 +20,32 @@ void main() async {
 
   final hotelRepository = HotelRepository(jsonDataService: JsonDataService());
 
-
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LazyBootstrap();
   FlutterNativeSplash.remove();
 
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => ThemeProvider(WidgetsBinding.instance.platformDispatcher.platformBrightness)),
-    ChangeNotifierProvider(create: (_) => OnboardingProvider(OnboardingRepository())),
-    ChangeNotifierProvider(create: (_) => HomeProvider(hotelRepository)),
-    ChangeNotifierProvider(create: (_) => ProfileProvider(ProfileRepository() , hotelRepository)),
-    ChangeNotifierProvider(create: (_) => FavoriteItemProvider(hotelRepository)),
-
-  ]
-  ,
-  child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(
+            WidgetsBinding.instance.platformDispatcher.platformBrightness,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OnboardingProvider(OnboardingRepository()),
+        ),
+        ChangeNotifierProvider(create: (_) => HomeProvider(hotelRepository)),
+        ChangeNotifierProvider(
+          create: (_) => ProfileProvider(ProfileRepository(), hotelRepository),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteItemProvider(hotelRepository),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -44,32 +55,28 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-
-
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
-
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
-
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-  
+
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
 
-    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-    Provider.of<ThemeProvider>(context , listen: false).updateTheme(brightness);
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    Provider.of<ThemeProvider>(context, listen: false).updateTheme(brightness);
   }
 
-  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -79,14 +86,21 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           top: false,
           child: MaterialApp(
             title: 'Hotelino',
+            locale: Locale("fa", "IR"),
+            supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
+            localizationsDelegates: const [
+              PersianMaterialLocalizations.delegate,
+              PersianCupertinoLocalizations.delegate,
+            ],
             debugShowCheckedModeBanner: false,
-            theme: themeModeProvider.brightness == Brightness.light ? AppTheme.lightTheme : AppTheme.darkTheme,
+            theme: themeModeProvider.brightness == Brightness.light
+                ? AppTheme.lightTheme
+                : AppTheme.darkTheme,
             routes: AppRoute.routes,
             initialRoute: AppRoute.onboarding,
           ),
         );
-      } ,
+      },
     );
   }
 }
-
