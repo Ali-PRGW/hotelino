@@ -24,6 +24,7 @@ class _BookingPageState extends State<BookingPage> {
   void resetForm() {
     Future.delayed(Duration(milliseconds: 100), () {
       _formKey.currentState?.reset();
+      TermsWidget.termsKey.currentState?.resetCheckBox(); 
       setState(() {});
     });
   }
@@ -145,7 +146,8 @@ class _BookingPageState extends State<BookingPage> {
                         }
                       },
                     ),
-                    TermsWidget()
+                    TermsWidget(),
+                  
                   ],
                 ),
               );

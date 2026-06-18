@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hotelino/core/utils/keyboard.dart';
 
 class TermsWidget extends StatefulWidget {
-  const TermsWidget({super.key});
+  static final GlobalKey<_TermsWidgetState> termsKey =
+      GlobalKey<_TermsWidgetState>();
+
+  TermsWidget({Key? key}) : super(key: termsKey);
 
   @override
   State<TermsWidget> createState() => _TermsWidgetState();
@@ -10,6 +13,13 @@ class TermsWidget extends StatefulWidget {
 
 class _TermsWidgetState extends State<TermsWidget> {
   bool isChecked = false;
+
+  resetCheckBox(){
+    setState(() {
+      isChecked = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -46,8 +56,9 @@ class _TermsWidgetState extends State<TermsWidget> {
               isChecked = value ?? false;
             });
           },
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           activeColor: Theme.of(context).colorScheme.primary,
+          visualDensity: VisualDensity(horizontal: -4),
         ),
       ],
     );
@@ -63,7 +74,7 @@ class _TermsWidgetState extends State<TermsWidget> {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsetsGeometry.all(24),
-          
+
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -72,9 +83,9 @@ class _TermsWidgetState extends State<TermsWidget> {
                     'قوانین برنامه هتلینو',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
-                        
+
                   SizedBox(height: 16),
-                        
+
                   Text(
                     "هتلینو یکی از برنامه‌های معتبر از دوره‌ی یاقوت فلاتر است که توسط علی رمضانی طراحی و توسعه یافته است. این برنامه به شما این امکان را می‌دهد تا به راحتی هتل‌های مختلف را در کشورهای گوناگون جستجو کرده و رزرو کنید\n\n"
                     "شما قادر خواهید بود پروفایل شخصی خود را ایجاد کنید و هتل‌هایی که به نیازهای شما نزدیک‌تر هستند را پیدا کنید. توجه داشته باشید که هتل‌های رزرو شده قابل لغو نبوده و پس از انجام رزرو، تغییرات در این زمینه امکان‌پذیر نمی‌باشد\n\n"
