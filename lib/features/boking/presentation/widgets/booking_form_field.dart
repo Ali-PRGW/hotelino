@@ -26,7 +26,7 @@ class BookingFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(title ,style:  Theme.of(contex).textTheme.titleMedium),
+        Text(title ,style:  Theme.of(context).textTheme.titleMedium),
         SizedBox(height: 8,),
         Directionality(
           textDirection: TextDirection.rtl,
