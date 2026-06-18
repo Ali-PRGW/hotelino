@@ -25,6 +25,7 @@ class _BookingPageState extends State<BookingPage> {
     Future.delayed(Duration(milliseconds: 100), () {
       _formKey.currentState?.reset();
       TermsWidget.termsKey.currentState?.resetCheckBox(); 
+      NumberFormField.numberFieldKey.currentState?.resetEnteredNumber();
       setState(() {});
     });
   }
