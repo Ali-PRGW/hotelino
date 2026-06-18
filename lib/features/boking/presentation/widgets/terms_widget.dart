@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:hotelino/core/constants/constants.dart';
 import 'package:hotelino/core/utils/keyboard.dart';
 
 class TermsWidget extends StatefulWidget {
@@ -41,41 +42,45 @@ class _TermsWidgetState extends State<TermsWidget> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _showTermsDialog(context);
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade700,
-                      ),
-                      children: [
-                        TextSpan(text: 'قوانین برنامه'),
-                        TextSpan(
-                          text: ' هتلینو ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+            Padding(
+              padding: EdgeInsetsGeometry.only(top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _showTermsDialog(context);
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey.shade700,
                         ),
-                        TextSpan(text: 'را خوانده و آنها را میپذیرم.'),
-                      ],
+                        children: [
+                          TextSpan(text: 'قوانین برنامه'),
+                          TextSpan(
+                            text: ' هتلینو ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          TextSpan(text: 'را خوانده و آنها را میپذیرم.'),
+                        ],
+                      ),
+                      textDirection: TextDirection.rtl,
                     ),
-                    textDirection: TextDirection.rtl,
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsetsGeometry.only(top: 8),
-                  child: Checkbox(
+                  Checkbox(
                     side: BorderSide(
                       color: field.hasError
-                          ? Theme.of(field.context).colorScheme.error
-                          : Theme.of(field.context).colorScheme.primary,
-                          width: field.hasError ? 1 : 1.5
+                          ? isChecked
+                                ? Theme.of(field.context).colorScheme.primary
+                                : Theme.of(field.context).colorScheme.error
+                          : isChecked
+                          ? Theme.of(field.context).colorScheme.primary
+                          : AppColors.lightBorder,
+                      width: field.hasError ? 1.3 : 2,
                     ),
                     value: isChecked,
                     onChanged: (value) {
@@ -89,8 +94,8 @@ class _TermsWidgetState extends State<TermsWidget> {
                     activeColor: Theme.of(context).colorScheme.primary,
                     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             if (field.hasError)
               Padding(
