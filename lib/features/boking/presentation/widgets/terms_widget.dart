@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/utils/keyboard.dart';
 
@@ -5,7 +7,16 @@ class TermsWidget extends StatefulWidget {
   static final GlobalKey<_TermsWidgetState> termsKey =
       GlobalKey<_TermsWidgetState>();
 
-  TermsWidget({Key? key}) : super(key: termsKey);
+  final bool initialValue;
+  final FormFieldValidator<bool>? validator;
+  final FormFieldSetter<bool>? onSaved;
+
+  TermsWidget({
+    Key? key,
+    required this.initialValue,
+    this.validator,
+    this.onSaved,
+  }) : super(key: termsKey);
 
   @override
   State<TermsWidget> createState() => _TermsWidgetState();
@@ -14,7 +25,7 @@ class TermsWidget extends StatefulWidget {
 class _TermsWidgetState extends State<TermsWidget> {
   bool isChecked = false;
 
-  resetCheckBox(){
+  resetCheckBox() {
     setState(() {
       isChecked = false;
     });
@@ -22,45 +33,79 @@ class _TermsWidgetState extends State<TermsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        GestureDetector(
-          onTap: () {
-            _showTermsDialog(context);
-          },
-          child: RichText(
-            text: TextSpan(
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade700),
+    return FormField<bool>(
+      initialValue: widget.initialValue,
+      onSaved: widget.onSaved,
+      validator: widget.validator,
+      builder: (FormFieldState<bool> field) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextSpan(text: 'قوانین برنامه'),
-                TextSpan(
-                  text: ' هتلینو ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.primary,
+                GestureDetector(
+                  onTap: () {
+                    _showTermsDialog(context);
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey.shade700,
+                      ),
+                      children: [
+                        TextSpan(text: 'قوانین برنامه'),
+                        TextSpan(
+                          text: ' هتلینو ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        TextSpan(text: 'را خوانده و آنها را میپذیرم.'),
+                      ],
+                    ),
+                    textDirection: TextDirection.rtl,
                   ),
                 ),
-                TextSpan(text: 'را خوانده و آنها را میپذیرم.'),
+                Padding(
+                  padding: EdgeInsetsGeometry.only(top: 8),
+                  child: Checkbox(
+                    side: BorderSide(
+                      color: field.hasError
+                          ? Theme.of(field.context).colorScheme.error
+                          : Theme.of(field.context).colorScheme.primary,
+                          width: field.hasError ? 1 : 1.5
+                    ),
+                    value: isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        isChecked = value ?? false;
+                      });
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+                  ),
+                ),
               ],
             ),
-            textDirection: TextDirection.rtl,
-          ),
-        ),
-        Checkbox(
-          value: isChecked,
-          onChanged: (value) {
-            setState(() {
-              isChecked = value ?? false;
-            });
-          },
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          activeColor: Theme.of(context).colorScheme.primary,
-          visualDensity: VisualDensity(horizontal: -4),
-        ),
-      ],
+            if (field.hasError)
+              Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: Text(
+                  field.errorText ?? '',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 

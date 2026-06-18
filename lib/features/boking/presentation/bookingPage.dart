@@ -136,7 +136,7 @@ class _BookingPageState extends State<BookingPage> {
                       initialValue: bookingProvider.booking.phoneNumber,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'لظفا شماره را به درستی وارد کنید';
+                          return 'لطفا شماره را به درستی وارد کنید';
                         }
                         return null;
                       },
@@ -146,7 +146,19 @@ class _BookingPageState extends State<BookingPage> {
                         }
                       },
                     ),
-                    TermsWidget(),
+                    TermsWidget(
+                      initialValue: false ,
+                      validator: (value) {
+                        if (value == null || value == false) {
+                          return 'لطفا قوانین برنامه را تایید کنید ';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        
+                      },
+                    ),
+                    SizedBox(height: 8,),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(onPressed: () {
@@ -156,7 +168,7 @@ class _BookingPageState extends State<BookingPage> {
                               'درخواست رزرو با موفقیت ثبت شد !', 
                               textDirection: TextDirection.rtl,
                             ))
-                          )
+                          );
                         }
                       }, child: Text('جستجوی هتل ها')),
                     )
