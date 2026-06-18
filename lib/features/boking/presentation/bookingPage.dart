@@ -1,5 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:hotelino/features/boking/data/models/country.dart';
 import 'package:hotelino/features/boking/logic/booking_provider.dart';
 import 'package:hotelino/features/boking/presentation/widgets/booking_form_field.dart';
 import 'package:hotelino/features/boking/presentation/widgets/date_picker_field.dart';
@@ -7,7 +8,10 @@ import 'package:hotelino/features/boking/presentation/widgets/number_text_field.
 import 'package:provider/provider.dart';
 
 class BookingPage extends StatefulWidget {
-  const BookingPage({super.key});
+  static GlobalKey<_BookingPageState> bookingPageKey =
+      GlobalKey<_BookingPageState>();
+
+  BookingPage({Key? key}) : super(key: bookingPageKey);
 
   @override
   State<BookingPage> createState() => _BookingPageState();

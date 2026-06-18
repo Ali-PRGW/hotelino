@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelino/core/constants/constants.dart';
+import 'package:hotelino/core/utils/keyboard.dart';
 import 'package:hotelino/features/boking/presentation/bookingPage.dart';
 import 'package:hotelino/features/favorite/presentation/favorite_page.dart';
 import 'package:hotelino/features/home/presentation/homePage.dart';
@@ -106,6 +107,14 @@ class _MainBottomNavState extends State<MainBottomNav> {
       backgroundColor: Theme.of(context).colorScheme.surface,
       navBarStyle: NavBarStyle.style7,
       hideNavigationBarWhenKeyboardAppears: true,
+      onItemSelected: (index) {
+        if(index != 2)
+        {
+          // Reset forms on booking page
+          BookingPage.bookingPageKey.currentState?.resetForm();
+        }
+        unFocusedEditors(context);
+      },
       stateManagement: true,
       handleAndroidBackButtonPress: true,
       animationSettings: NavBarAnimationSettings(
