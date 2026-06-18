@@ -24,6 +24,7 @@ class OnboardingItem extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
+          textDirection: TextDirection.rtl,
           style: theme.textTheme.headlineMedium,
         ),
         SizedBox(height: 30),
@@ -31,6 +32,7 @@ class OnboardingItem extends StatelessWidget {
           padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
           child: Text(
             description,
+            textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium,
           ),
