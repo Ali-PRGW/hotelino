@@ -5,6 +5,7 @@ import 'package:hotelino/features/boking/logic/booking_provider.dart';
 import 'package:hotelino/features/boking/presentation/widgets/booking_form_field.dart';
 import 'package:hotelino/features/boking/presentation/widgets/date_picker_field.dart';
 import 'package:hotelino/features/boking/presentation/widgets/number_text_field.dart';
+import 'package:hotelino/features/boking/presentation/widgets/terms_widget.dart';
 import 'package:provider/provider.dart';
 
 class BookingPage extends StatefulWidget {
@@ -144,6 +145,7 @@ class _BookingPageState extends State<BookingPage> {
                         }
                       },
                     ),
+                    TermsWidget()
                   ],
                 ),
               );
