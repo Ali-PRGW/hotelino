@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelino/core/constants/constants.dart';
@@ -8,14 +10,14 @@ import 'package:hotelino/features/home/presentation/homePage.dart';
 import 'package:hotelino/features/profile/presentation/profilePage.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-class MainBottomNav extends StatefulWidget {
-  const MainBottomNav({super.key});
+class MainButtomNav extends StatefulWidget {
+  const MainButtomNav({super.key});
 
   @override
-  State<MainBottomNav> createState() => _MainBottomNavState();
+  State<MainButtomNav> createState() => _MainButtomNavState();
 }
 
-class _MainBottomNavState extends State<MainBottomNav> {
+class _MainButtomNavState extends State<MainButtomNav> {
   late PersistentTabController _controller;
 
   @override
@@ -26,74 +28,67 @@ class _MainBottomNavState extends State<MainBottomNav> {
   }
 
   _buildScreens() {
-    return [Homepage(), FavoritePage(), BookingPage(), Profilepage()];
+    return [Homepage(), FavoritePage(), BookingPage(), ProfilePage()];
   }
 
-  List<PersistentBottomNavBarItem> _navBarItems() {
+  List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          "assets/images/nav_home.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-        activeColorPrimary: AppColors.primary,
-        inactiveIcon: SvgPicture.asset(
-          "assets/images/nav_home.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-        ),
-      ),
-
-        PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          "assets/images/nav_favorite.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
+          icon: SvgPicture.asset(
+            "assets/images/nav_home.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
           activeColorPrimary: AppColors.primary,
-        inactiveIcon: SvgPicture.asset(
-          "assets/images/nav_favorite.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-        ),
-      ),
-
-        PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          "assets/images/nav_booking.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-            activeColorPrimary: AppColors.primary,
-        inactiveIcon: SvgPicture.asset(
-          "assets/images/nav_booking.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-        ),
-      ),
-
+          inactiveIcon: SvgPicture.asset(
+            "assets/images/nav_home.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+          )),
       PersistentBottomNavBarItem(
-        icon: SvgPicture.asset(
-          "assets/images/nav_profile.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-            activeColorPrimary: AppColors.primary,
-        inactiveIcon: SvgPicture.asset(
-          "assets/images/nav_profile.svg",
-          width: 20,
-          height: 20,
-          colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-        ),
-      ),
+          icon: SvgPicture.asset(
+            "assets/images/nav_favorite.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
+          activeColorPrimary: AppColors.primary,
+          inactiveIcon: SvgPicture.asset(
+            "assets/images/nav_favorite.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+          )),
+      PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            "assets/images/nav_booking.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
+          activeColorPrimary: AppColors.primary,
+          inactiveIcon: SvgPicture.asset(
+            "assets/images/nav_booking.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+          )),
+      PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            "assets/images/nav_profile.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
+          activeColorPrimary: AppColors.primary,
+          inactiveIcon: SvgPicture.asset(
+            "assets/images/nav_profile.svg",
+            width: 20,
+            height: 20,
+            colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+          )),
     ];
   }
 
@@ -103,27 +98,24 @@ class _MainBottomNavState extends State<MainBottomNav> {
       context,
       controller: _controller,
       screens: _buildScreens(),
-      items: _navBarItems(),
+      items: _navBarsItems(),
+      onItemSelected: (index) {
+        if (index != 2) {
+          // reset form on booking page
+          BookingPage.bookingPageKey.currentState?.resetForm();
+        }
+
+        unFocusedEditors(context);
+      },
       backgroundColor: Theme.of(context).colorScheme.surface,
       navBarStyle: NavBarStyle.style7,
       hideNavigationBarWhenKeyboardAppears: true,
-      onItemSelected: (index) {
-        if(index != 2)
-        {
-          // Reset forms on booking page
-          BookingPage.bookingPageKey.currentState?.resetForm();
-        }
-        unFocusedEditors(context);
-      },
       stateManagement: true,
       handleAndroidBackButtonPress: true,
+      confineToSafeArea: true,
       animationSettings: NavBarAnimationSettings(
-        navBarItemAnimation: ItemAnimationSettings(
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease
-
-        )
-      ),
+          navBarItemAnimation:
+              ItemAnimationSettings(duration: Duration(milliseconds: 200), curve: Curves.ease)),
     );
   }
 }

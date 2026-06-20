@@ -32,7 +32,7 @@ class HomePageDataConstants {
   static const List<String> _recentlyViewedHotelIds = ["1", "4", "9"];
   static const List<String> _popularHotelIds = ["3", "6", "9", "10"];
   static const List<String> _specialOfferHotelIds = ["5", "7", "10"];
-  static const List<String> _newestHotelIds = ["8", "9", "10"];
+  static const List<String> _newestHotelIds = ["1","2","3","4","5","6","7","8", "9", "10"];
 
   static HomepageData get homePageData => HomepageData(
     favorites: _favoriteHotelIds,

@@ -14,45 +14,36 @@ class HomeProvider extends ChangeNotifier {
   List<Hotel> _hotels = [];
   List<Hotel> get hotels => _hotels;
 
-  final HomepageData _homepageData = HomePageDataConstants.homePageData;
-  HomepageData get homepageData => _homepageData;
+  final HomepageData _homePageData = HomePageDataConstants.homePageData;
+  HomepageData get homePageData => _homePageData;
 
   fetchHotels() async {
     _hotels = await _hotelRepository.fetchHotels();
     notifyListeners();
   }
 
-  //filter methods --------------------------------------------------------------------------
+  // Filter Methods ----------------------------------------------------------------------------------------------
 
   List<Hotel> getPopularHotels() {
-    return _hotels
-        .where((hotel) => _homepageData.popular.contains(hotel.id))
-        .toList();
+    return _hotels.where((hotel) => _homePageData.popular.contains(hotel.id)).toList();
   }
 
   List<Hotel> getSpecialOffersHotels() {
-    return _hotels
-        .where((hotel) => _homepageData.specialOffers.contains(hotel.id))
-        .toList();
+    return _hotels.where((hotel) => _homePageData.specialOffers.contains(hotel.id)).toList();
   }
 
   List<Hotel> getNewestHotels() {
-    return _hotels
-        .where((hotel) => _homepageData.newest.contains(hotel.id))
-        .toList();
+    return _hotels.where((hotel) => _homePageData.newest.contains(hotel.id)).toList();
   }
 
-  //story section -----------------------------------------------------------------------------
-  List<String> getStoryIamge() {
-    final shuffeldHotels = List<Hotel>.from(_hotels)..shuffle();
-    return shuffeldHotels.take(3).map((hotel) => hotel.images[0]).toList();
+  // Story Section ------------------------------------------------------------------------------------------------
+
+  List<String> getStoryImages() {
+    final shuffledHotels = List<Hotel>.from(_hotels)..shuffle();
+    return shuffledHotels.take(3).map((hotel) => hotel.images[0]).toList();
   }
 
-  final List<String> _storyTitles = [
-    "امکانات رفاهی کامل",
-    "اقامت در دل شهر",
-    "لوکس ترین هتل ها",
-  ];
+  final List<String> _storyTitles = ["امکانات رفاهی کامل", "اقامت در قلب شهر", "لوکس ترین هتل ها"];
 
   List<String> get storyTitles => _storyTitles;
 }

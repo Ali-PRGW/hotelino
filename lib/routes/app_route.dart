@@ -13,6 +13,6 @@ class AppRoute {
 
   static final Map<String , WidgetBuilder> routes = {
     onboarding:(ctx) => const OnboardingPage(),
-    home:(ctx) => const  MainBottomNav()
+    home:(ctx) => const  MainButtomNav()
   };
 }

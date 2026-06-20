@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hotelino/core/utils/network.dart';
 import 'package:hotelino/core/utils/price_formater.dart';
 import 'package:hotelino/features/home/data/models/hotel.dart';
+import 'package:hotelino/features/hotel_detail/presentation/hotel_detail_page.dart';
+import 'package:hotelino/nex_pay/nextpay_payment_service.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class HotelCardVertical extends StatelessWidget {
   final Hotel hotel;
@@ -12,7 +15,14 @@ class HotelCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          withNavBar: true,
+          screen: HotelDetailPage(hotelId: hotel.id),
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      },
       child: Container(
         height: 150,
         decoration: BoxDecoration(
@@ -41,7 +51,9 @@ class HotelCardVertical extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 12, bottom: 12),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await NextPayPaymentService.openPaymentPage();
+                },
                 child: const Text(
                   "رزرو اتاق",
                   style: TextStyle(color: Colors.white),
@@ -81,7 +93,7 @@ class HotelCardVertical extends StatelessWidget {
                       children: [
                         // Text("${hotel.bedType.count} ${hotel.bedType.type}"),
                         Text(
-                          "${hotel.bedType.details}",
+                          "${hotel.bedType.count} ${hotel.bedType.details}",
                           textDirection: TextDirection.rtl,
                         ),
                         const SizedBox(width: 5),

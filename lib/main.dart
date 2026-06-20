@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:hotelino/core/theme/app_theme.dart';
 import 'package:hotelino/core/theme/theme_provider.dart';
@@ -19,37 +21,24 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  final hotelRepository = HotelRepository(jsonDataService: JsonDataService());
-
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LazyBootstrap();
   FlutterNativeSplash.remove();
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => ThemeProvider(
-            WidgetsBinding.instance.platformDispatcher.platformBrightness,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => OnboardingProvider(OnboardingRepository()),
-        ),
-        ChangeNotifierProvider(create: (_) => HomeProvider(hotelRepository)),
-        ChangeNotifierProvider(
-          create: (_) => ProfileProvider(ProfileRepository(), hotelRepository),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => FavoriteItemProvider(hotelRepository),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => BookingProvider(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  final hotelRepository = HotelRepository(jsonDataService: JsonDataService());
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+          create: (_) => ThemeProvider(WidgetsBinding.instance.platformDispatcher.platformBrightness)),
+      ChangeNotifierProvider(create: (_) => OnboardingProvider(OnboardingRepository())),
+      ChangeNotifierProvider(create: (_) => BookingProvider()),
+      ChangeNotifierProvider(create: (_) => HomeProvider(hotelRepository)),
+      ChangeNotifierProvider(create: (_) => ProfileProvider(ProfileRepository(), hotelRepository)),
+      ChangeNotifierProvider(create: (_) => FavoriteItemProvider(hotelRepository)),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -76,33 +65,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
 
-    final brightness =
-        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     Provider.of<ThemeProvider>(context, listen: false).updateTheme(brightness);
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, themeModeProvider, child) {
-        return SafeArea(
-          top: false,
-          child: MaterialApp(
-            title: 'Hotelino',
-            locale: Locale("fa", "IR"),
-            supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
-            localizationsDelegates: const [
-              PersianMaterialLocalizations.delegate,
-              PersianCupertinoLocalizations.delegate,
-            ],
-            debugShowCheckedModeBanner: false,
-            theme: themeModeProvider.brightness == Brightness.light
-                ? AppTheme.lightTheme
-                : AppTheme.darkTheme,
-            routes: AppRoute.routes,
-            initialRoute: AppRoute.onboarding,
-          ),
+        return MaterialApp(
+          title: 'Hotelino',
+          locale: const Locale("fa", "IR"),
+          supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
+          localizationsDelegates: const [
+            PersianMaterialLocalizations.delegate,
+            PersianCupertinoLocalizations.delegate
+          ],
+          debugShowCheckedModeBanner: false,
+          theme: themeModeProvider.brightness == Brightness.light ? AppTheme.lightTheme : AppTheme.darkTheme,
+          routes: AppRoute.routes,
+          initialRoute: AppRoute.onboarding,
         );
       },
     );

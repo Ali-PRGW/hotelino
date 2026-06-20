@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hotelino/features/home/logic/providers/home_provider.dart';
 import 'package:hotelino/features/home/presentation/widgets/ad_banner.dart';
+import 'package:hotelino/features/home/presentation/widgets/all_hotel_page.dart';
 import 'package:hotelino/features/home/presentation/widgets/home_appbar.dart';
 import 'package:hotelino/features/home/presentation/widgets/hotel_list_section.dart';
 import 'package:hotelino/features/home/presentation/widgets/hotel_vertical_list.dart';
 import 'package:hotelino/features/home/presentation/widgets/searchbar.dart';
 import 'package:hotelino/features/home/presentation/widgets/story_carousel.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatelessWidget {
@@ -30,7 +32,17 @@ class Homepage extends StatelessWidget {
                 return HotelListSection(
                   title: "محبوب ترین هتل ها",
                   hotels: homeProvider.getPopularHotels(),
-                  onSeeAllPressed: () {},
+                  onSeeAllPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AllHotelsPage(
+                          title: "محبوب ترین هتل ها",
+                          hotels: homeProvider.getPopularHotels(),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -39,7 +51,17 @@ class Homepage extends StatelessWidget {
                 return HotelListSection(
                   title: "پیشنهاد ویژه روز",
                   hotels: homeProvider.getSpecialOffersHotels(),
-                  onSeeAllPressed: () {},
+                  onSeeAllPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AllHotelsPage(
+                          title: "پیشنهاد ویژه روز",
+                          hotels: homeProvider.getSpecialOffersHotels(),
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -49,12 +71,12 @@ class Homepage extends StatelessWidget {
             Consumer<HomeProvider>(
               builder: (context, homeProvider, child) {
                 return StoryCarousel(
-                  images: homeProvider.getStoryIamge(),
+                  images: homeProvider.getStoryImages(),
                   titles: homeProvider.storyTitles,
                 );
               },
             ),
-            
+
             Consumer<HomeProvider>(
               builder: (context, homeProvider, child) {
                 return HotelVerticalList(
