@@ -22,79 +22,81 @@ class _OnboardingPageState extends State<OnboardingPage> {
     final int totalPages = onboardingData.length;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: totalPages,
-              onPageChanged: onboardingProvider.updateCurrentPage,
-              itemBuilder: (context, index) {
-                final data = onboardingData[index];
-                return OnboardingItem(
-                  title: data["title"]!,
-                  description: data["description"]!,
-                  image: data["image"]!,
-                );
-              },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: totalPages,
+                onPageChanged: onboardingProvider.updateCurrentPage,
+                itemBuilder: (context, index) {
+                  final data = onboardingData[index];
+                  return OnboardingItem(
+                    title: data["title"]!,
+                    description: data["description"]!,
+                    image: data["image"]!,
+                  );
+                },
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          buildPageIndicator(
-            onboardingProvider.currentPage,
-            totalPages,
-            context,
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                OnboardingButton(
-                  visible: onboardingProvider.currentPage > 0,
-                  icon: Icons.arrow_back,
-                  onPressed: () => _previousPage(),
-                  backGroundColor: Colors.transparent,
-                  iconColor: Theme.of(context).colorScheme.primary,
-                ),
-                OnboardingButton(
-                  visible:
-                      onboardingProvider.currentPage <
-                      onboardingProvider.onboardingData.length - 1,
-                  icon: Icons.arrow_forward,
-                  onPressed: () => _nextPage(),
-                  backGroundColor: Theme.of(context).colorScheme.primary,
-                  iconColor: Colors.white,
-                ),
-              ],
+            SizedBox(height: 20),
+            buildPageIndicator(
+              onboardingProvider.currentPage,
+              totalPages,
+              context,
             ),
-          ),
-          SizedBox(height: 30),
-          if (totalPages > 1) ...[
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              transitionBuilder: (child, animation) {
-                return SizeTransition(child: child, sizeFactor: animation);
-              },
-              child: onboardingProvider.currentPage == totalPages - 1
-                  ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20 , vertical: 10),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, AppRoute.home);
-                          },
-                          child: Text('شروع رزرو هتل ها '),
-                        ),
-                    ),
-                  )
-                  : null,
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OnboardingButton(
+                    visible: onboardingProvider.currentPage > 0,
+                    icon: Icons.arrow_back,
+                    onPressed: () => _previousPage(),
+                    backGroundColor: Colors.transparent,
+                    iconColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  OnboardingButton(
+                    visible:
+                        onboardingProvider.currentPage <
+                        onboardingProvider.onboardingData.length - 1,
+                    icon: Icons.arrow_forward,
+                    onPressed: () => _nextPage(),
+                    backGroundColor: Theme.of(context).colorScheme.primary,
+                    iconColor: Colors.white,
+                  ),
+                ],
+              ),
             ),
+            SizedBox(height: 30),
+            if (totalPages > 1) ...[
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  return SizeTransition(child: child, sizeFactor: animation);
+                },
+                child: onboardingProvider.currentPage == totalPages - 1
+                    ? Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20 , vertical: 10),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, AppRoute.home);
+                            },
+                            child: Text('شروع رزرو هتل ها '),
+                          ),
+                      ),
+                    )
+                    : null,
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
