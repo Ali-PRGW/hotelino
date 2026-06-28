@@ -78,7 +78,14 @@ class HotelCardVertical extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("${hotel.city}, ${hotel.country}"),
+                        Expanded(
+                          child: Text(
+                            "${hotel.city}, ${hotel.country}",
+                            textAlign: TextAlign.end,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                         const SizedBox(width: 5),
                         Icon(
                           Icons.location_on,
@@ -93,7 +100,7 @@ class HotelCardVertical extends StatelessWidget {
                       children: [
                         // Text("${hotel.bedType.count} ${hotel.bedType.type}"),
                         Text(
-                          "${hotel.bedType.count} ${hotel.bedType.details}",
+                          " ${hotel.bedType.details}",
                           textDirection: TextDirection.rtl,
                         ),
                         const SizedBox(width: 5),
